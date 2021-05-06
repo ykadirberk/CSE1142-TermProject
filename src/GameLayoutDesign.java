@@ -14,7 +14,7 @@ and best score variables. The Center part consist of a grid pane which is formed
  the bottom part is only has a text */
 
 
-
+//denemeeeeeee
 public class GameLayoutDesign extends Application {
 	public void start(Stage primaryStage) {
 		BorderPane bPane = new BorderPane();// Initial the border Pane
