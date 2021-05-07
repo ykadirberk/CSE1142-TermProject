@@ -1,3 +1,5 @@
+
+
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -12,13 +14,11 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class Main extends Application{
-
+public class BalloonClassTry extends Application{
 	public static void main(String[] args) {
 		launch(args);
 	}
-
-	@Override
+	
 	public void start(Stage stage) throws Exception {
 		GridPane pane = new GridPane();
 		pane.setAlignment(Pos.CENTER);
@@ -42,20 +42,15 @@ public class Main extends Application{
 		borders.setBottom(pane);
 
 		Scene scene = new Scene(borders);
-		Rectangle[][] boxes = new Rectangle[10][10];
+		Ballonn[][] boxes = new Ballonn[10][10];
 		
 		for (int i = 0; i < 10; i++) {
 			for (int j = 0; j < 10; j++) {
-				boxes[i][j] = new Rectangle();
+				boxes[i][j] = new Ballonn((int)(Math.random()*3),i,j);
 				boxes[i][j].heightProperty().bind(scene.heightProperty().divide(12));
 				boxes[i][j].widthProperty().bind(scene.widthProperty().divide(11));
-				boxes[i][j].arcHeightProperty().bind(scene.heightProperty().divide(60));
-				boxes[i][j].arcWidthProperty().bind(scene.widthProperty().divide(60));
-				boxes[i][j].setFill(Color.rgb(255,255,255));
-				boxes[i][j].setStroke(Color.rgb(200,200,200));
-				boxes[i][j].setStrokeWidth(1);
-				boxes[i][j].setCursor(Cursor.HAND);
-				
+
+	
 				ClickEventClass click = new ClickEventClass(i,j);
 				ToggleEventClass toggle = new ToggleEventClass(i,j);
 				boxes[i][j].setOnMouseClicked(click);
@@ -73,23 +68,27 @@ public class Main extends Application{
 }
 
 
-/*class ClickEventClass implements EventHandler<MouseEvent> {
+class ClickEventClass implements EventHandler<MouseEvent> {
 	public int row;
 	public int column;
-	
 	public ClickEventClass(int row, int column) {
 		this.row = row;
 		this.column = column;
+		
 	}
 	
 	@Override
-	public void handle(MouseEvent e) {
+	public  void handle(MouseEvent e) {
 		System.out.println("Click: "  + row + ", " + column);
+		Object source = e.getTarget();
+		if(source instanceof Ballonn) {
+			((Ballonn) source).isClicked();
+		}
 	}
 	
-}*/
+}
 
-/*class ToggleEventClass implements EventHandler<MouseEvent> {
+class ToggleEventClass implements EventHandler<MouseEvent> {
 	public int row;
 	public int column;
 	
@@ -101,6 +100,7 @@ public class Main extends Application{
 	@Override
 	public void handle(MouseEvent e) {
 		System.out.println("Toggle: " + row + ", " + column);
+
 	}
-	
-}*/
+}
+
