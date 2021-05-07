@@ -1,10 +1,15 @@
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Main extends Application{
@@ -16,41 +21,86 @@ public class Main extends Application{
 	@Override
 	public void start(Stage stage) throws Exception {
 		GridPane pane = new GridPane();
-		Scene scene = new Scene(pane);
-		
-		Rectangle rect0 = new Rectangle(40, 40);
-		rect0.setArcHeight(25);
-		rect0.setArcWidth(25);
-		rect0.setFill(Color.rgb(255,0,0));
-		rect0.setStroke(Color.BLUE);
-		rect0.setStrokeWidth(1);
-		
-		Rectangle rect1 = new Rectangle(40, 40);
-		rect1.setArcHeight(40);
-		rect1.setArcWidth(40);
-		rect1.setFill(Color.rgb(0,255,0));
-		rect1.setStroke(Color.BLUE);
-		rect1.setStrokeWidth(3);
-		
-		Rectangle rect2 = new Rectangle(40, 40);
-		rect2.setArcHeight(0);
-		rect2.setArcWidth(0);
-		rect2.setFill(Color.rgb(0,0,255));
-		rect2.setStroke(Color.RED);
-		rect2.setStrokeWidth(5);
-		
 		pane.setAlignment(Pos.CENTER);
-		pane.setPadding(new Insets(5,5,5,5));
-		pane.setHgap(5.25);
-		pane.setVgap(5.25);
+		pane.setPadding(new Insets(0, 0, 0, 0));
+		pane.setMinSize(500, 500);
+		pane.setHgap(2);
+		pane.setVgap(2);
 		
-		pane.add(rect0, 0, 0);
-		pane.add(rect1, 2, 2);
-		pane.add(rect2, 1, 3);
+		Text left = new Text();
+		left.setText("Level #1");
+		Text mid = new Text();
+		mid.setText("Score: 0");
+		Text right = new Text();
+		right.setText("HighScore: X");
+		
+		BorderPane borders = new BorderPane();
+		borders.setPadding(new Insets(0, 10, 0, 10));
+		borders.setLeft(left);
+		borders.setCenter(mid);
+		borders.setRight(right);
+		borders.setBottom(pane);
+		
+		Scene scene = new Scene(borders);
+		Rectangle[][] boxes = new Rectangle[10][10];
+		
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				boxes[i][j] = new Rectangle();
+				boxes[i][j].heightProperty().bind(scene.heightProperty().divide(12));
+				boxes[i][j].widthProperty().bind(scene.widthProperty().divide(11));
+				boxes[i][j].arcHeightProperty().bind(scene.heightProperty().divide(60));
+				boxes[i][j].arcWidthProperty().bind(scene.widthProperty().divide(60));
+				boxes[i][j].setFill(Color.rgb(255,255,255));
+				boxes[i][j].setStroke(Color.rgb(200,200,200));
+				boxes[i][j].setStrokeWidth(1);
+				boxes[i][j].setCursor(Cursor.HAND);
+				
+				ClickEventClass click = new ClickEventClass(i,j);
+				ToggleEventClass toggle = new ToggleEventClass(i,j);
+				boxes[i][j].setOnMouseClicked(click);
+				boxes[i][j].setOnMouseEntered(toggle);
+				
+				pane.add(boxes[i][j], j, i);
+			}
+		}
 		
 		stage.setTitle("deneme");
 		stage.setScene(scene);
 		stage.show();
 	}
 
+}
+
+
+class ClickEventClass implements EventHandler<MouseEvent> {
+	public int row;
+	public int column;
+	
+	public ClickEventClass(int row, int column) {
+		this.row = row;
+		this.column = column;
+	}
+	
+	@Override
+	public void handle(MouseEvent e) {
+		System.out.println("Click: "  + row + ", " + column);
+	}
+	
+}
+
+class ToggleEventClass implements EventHandler<MouseEvent> {
+	public int row;
+	public int column;
+	
+	public ToggleEventClass(int row, int column) {
+		this.row = row;
+		this.column = column;
+	}
+	
+	@Override
+	public void handle(MouseEvent e) {
+		System.out.println("Toggle: " + row + ", " + column);
+	}
+	
 }
