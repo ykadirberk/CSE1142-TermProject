@@ -1,18 +1,18 @@
 import javafx.scene.Cursor;
 import javafx.scene.shape.Rectangle;
 
-public class Ballonn extends Rectangle{
+public class Balloon extends Rectangle{
 	private int life = 0;
 	private int xPosition;
 	private int yPosition;
 	
 	
-	protected Ballonn(int xPosition, int yPosition){	
+	protected Balloon(int xPosition, int yPosition){	
 		this.xPosition = xPosition;
 		this.yPosition = yPosition;
 		super.setStyle("-fx-background-radius: 0em; -fx-fill: rgb(127,127,127); -fx-stroke: rgb(47,47,47); -fx-stroke-width: 3px;");
 	}
-	protected Ballonn(int life, int xPosition, int yPosition) {
+	protected Balloon(int life, int xPosition, int yPosition) {
 		this.life = life;
 		this.xPosition = xPosition;
 		this.yPosition = yPosition;
