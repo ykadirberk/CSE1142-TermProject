@@ -1,3 +1,4 @@
+
 import javafx.scene.Cursor;
 import javafx.scene.shape.Rectangle;
 
@@ -19,7 +20,7 @@ public class Balloon extends Rectangle{
 		setStyleProperties(life);
 	}
 
-	private void setStyleProperties(int x) {
+	void setStyleProperties(int x) {
 		switch(x) {
 		case 0:
 			super.setStyle("-fx-background-radius: 0em; -fx-fill: rgb(255,255,255); -fx-stroke: rgb(195,195,195); -fx-stroke-width: 3px;");

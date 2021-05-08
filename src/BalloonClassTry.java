@@ -1,5 +1,6 @@
 
 
+
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -20,13 +21,7 @@ public class BalloonClassTry extends Application {
 	}
 	
 	public void start(Stage stage) throws Exception {
-		GridPane pane = new GridPane();
-		pane.setAlignment(Pos.CENTER);
-		pane.setPadding(new Insets(0, 10, 0, 10));
-		pane.setMinSize(500, 500);
-		pane.setHgap(2);
-		pane.setVgap(2);
-		
+		LevelCreator level1 = new LevelCreator(2);// 1,2,3,4,5
 		Text left = new Text();
 		left.setText("Level #1");
 		Text mid = new Text();
@@ -39,25 +34,10 @@ public class BalloonClassTry extends Application {
 		borders.setLeft(level.getLevelText());
 		borders.setCenter(level.getScoreText());
 		borders.setRight(level.getHighscoreText());
-		borders.setBottom(pane);
+		borders.setBottom(level1.constructCenter());
 
 		Scene scene = new Scene(borders);
 		
-		for (int i = 0; i < 10; i++) {
-			for (int j = 0; j < 10; j++) {
-				LevelCreator.boxes[i][j] = new Balloon((int)(Math.random()*3),i,j);
-				LevelCreator.boxes[i][j].heightProperty().bind(scene.heightProperty().divide(12));
-				LevelCreator.boxes[i][j].widthProperty().bind(scene.widthProperty().divide(11));
-
-	
-				ClickEventClass click = new ClickEventClass(i,j);
-				ToggleEventClass toggle = new ToggleEventClass(i,j);
-				LevelCreator.boxes[i][j].setOnMouseClicked(click);
-				LevelCreator.boxes[i][j].setOnMouseEntered(toggle);
-				
-				pane.add(LevelCreator.boxes[i][j], j, i);
-			}
-		}
 		
 		stage.setTitle("deneme");
 		stage.setScene(scene);
