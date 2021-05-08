@@ -22,15 +22,9 @@ public class BalloonClassTry extends Application {
 	
 	public void start(Stage stage) throws Exception {
 		LevelCreator level1 = new LevelCreator(2);// 1,2,3,4,5
-		Text left = new Text();
-		left.setText("Level #1");
-		Text mid = new Text();
-		mid.setText("Score: 0");
-		Text right = new Text();
-		right.setText("HighScore: X");
 		
 		BorderPane borders = new BorderPane();
-		borders.setPadding(new Insets(0, 10, 0, 10));
+		borders.setPadding(new Insets(0, 20, 0, 10));
 		borders.setLeft(level.getLevelText());
 		borders.setCenter(level.getScoreText());
 		borders.setRight(level.getHighscoreText());
@@ -38,9 +32,9 @@ public class BalloonClassTry extends Application {
 
 		Scene scene = new Scene(borders);
 		
-		
 		stage.setTitle("deneme");
 		stage.setScene(scene);
+		stage.setResizable(false);
 		stage.show();
 	}
 

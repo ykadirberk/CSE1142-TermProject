@@ -30,8 +30,6 @@ public class LevelCreator {
 				LevelCreator.boxes[i][j].heightProperty().bind(gPane.heightProperty().divide(12));
 				LevelCreator.boxes[i][j].widthProperty().bind(gPane.widthProperty().divide(11));
 
-
-	
 				ClickEventClass click = new ClickEventClass(i,j);
 				ToggleEventClass toggle = new ToggleEventClass(i,j);
 				LevelCreator.boxes[i][j].setOnMouseClicked(click);
