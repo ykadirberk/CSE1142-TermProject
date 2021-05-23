@@ -1,4 +1,6 @@
 
+import java.util.ArrayList;
+
 import javafx.scene.text.Text;
 
 public class Level {
@@ -40,33 +42,42 @@ public class Level {
 	}
 	
 	public void applyHit(int row, int column) {
-		int counter = 0;
 		Balloon[][] box = LevelCreator.boxes;
-		if ((row - 1) >= 0 && box[row - 1][column].getLife() > 0) {
-			box[row - 1][column].isClicked();
-			counter++;
+		
+		ArrayList<Integer[]> list = find5(row, column);
+		for (Integer[] i : list) {
+			box[ i[0] ][ i[1] ].isClicked();
 		}
 		
-		if ((row + 1) < 10 && box[row + 1][column].getLife() > 0) {
-			box[row + 1][column].isClicked();
-			counter++;
-		}
-		
-		if ((column - 1) >= 0 && box[row][column - 1].getLife() > 0) {
-			box[row][column - 1].isClicked();
-			counter++;
-		}
-		
-		if ((column + 1) < 10 && box[row][column + 1].getLife() > 0) {
-			box[row][column + 1].isClicked();
-			counter++;
-		}
-		
-		box[row][column].isClicked();
-		counter++;
-		
-		current_score += hitToScore(counter);
+		current_score += hitToScore(list.size());
 		score_text.setText("Score: " + current_score);
+	}
+	
+	public void applyHover(int row, int column) {
+		Balloon[][] box = LevelCreator.boxes;
+		
+		ArrayList<Integer[]> list = find5(row, column);
+		for (Integer[] i : list) {
+			box[ i[0] ][ i[1] ].hover();
+		}
+	}
+	
+	public void applyLeave(int row, int column) {
+		Balloon[][] box = LevelCreator.boxes;
+		
+		ArrayList<Integer[]> list = find5(row, column);
+		for (Integer[] i : list) {
+			box[ i[0] ][ i[1] ].leave();
+		}
+	}
+	
+	public void applyClick(int row, int column) {
+		Balloon[][] box = LevelCreator.boxes;
+		
+		ArrayList<Integer[]> list = find5(row, column);
+		for (Integer[] i : list) {
+			box[ i[0] ][ i[1] ].click();
+		}
 	}
 	
 	private int hitToScore(int hit) {
@@ -86,5 +97,44 @@ public class Level {
 	}
 	public Text getHighscoreText() {
 		return highscore_text;
+	}
+	
+	//find that 5 balloons 
+	private ArrayList<Integer[]> find5(int row, int column) {
+		ArrayList<Integer[]> balloon5temp = new ArrayList<>();
+		Balloon[][] box = LevelCreator.boxes;
+		
+		if ((row - 1) >= 0 && box[row - 1][column].getLife() > 0) {
+			Integer[] pos = new Integer[2];
+			pos[0] = row - 1;
+			pos[1] = column;
+			balloon5temp.add(pos);
+		}
+		
+		if ((row + 1) < 10 && box[row + 1][column].getLife() > 0) {
+			Integer[] pos = new Integer[2];
+			pos[0] = row + 1;
+			pos[1] = column;
+			balloon5temp.add(pos);
+		}
+		
+		if ((column - 1) >= 0 && box[row][column - 1].getLife() > 0) {
+			Integer[] pos = new Integer[2];
+			pos[0] = row;
+			pos[1] = column - 1;
+			balloon5temp.add(pos);
+		}
+		
+		if ((column + 1) < 10 && box[row][column + 1].getLife() > 0) {
+			Integer[] pos = new Integer[2];
+			pos[0] = row;
+			pos[1] = column + 1;
+			balloon5temp.add(pos);
+		}
+		Integer[] pos = new Integer[2];
+		pos[0] = row;
+		pos[1] = column;
+		balloon5temp.add(pos);
+		return balloon5temp;
 	}
 }

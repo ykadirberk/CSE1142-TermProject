@@ -1,9 +1,8 @@
 import java.io.File;
-import java.io.IOException;
 import java.util.Scanner;
 import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
+
 public class LevelCreator {
 	private File levelPath;
 	public static Balloon[][] boxes = new Balloon[10][10];
@@ -30,10 +29,15 @@ public class LevelCreator {
 				LevelCreator.boxes[i][j].heightProperty().bind(gPane.heightProperty().divide(12));
 				LevelCreator.boxes[i][j].widthProperty().bind(gPane.widthProperty().divide(11));
 
-				ClickEventClass click = new ClickEventClass(i,j);
-				ToggleEventClass toggle = new ToggleEventClass(i,j);
-				LevelCreator.boxes[i][j].setOnMouseClicked(click);
+				HoverEventClass toggle = new HoverEventClass(i,j);
+				PressEventClass press = new PressEventClass(i,j);
+				ReleaseEventClass release = new ReleaseEventClass(i,j);
+				MExitEventClass exit = new MExitEventClass(i, j);
+				
 				LevelCreator.boxes[i][j].setOnMouseEntered(toggle);
+				LevelCreator.boxes[i][j].setOnMousePressed(press);
+				LevelCreator.boxes[i][j].setOnMouseReleased(release);
+				LevelCreator.boxes[i][j].setOnMouseExited(exit);
 				
 				gPane.add(LevelCreator.boxes[i][j], j, i);
 			}
@@ -43,7 +47,7 @@ public class LevelCreator {
 				String[] s = input.nextLine().split(",");
 				int x = Integer.parseInt(s[1]);
 				int y = Integer.parseInt(s[2]);
-				LevelCreator.boxes[x][y].setStyleProperties(nameToLifeConv(s[0]));
+				LevelCreator.boxes[x][y].setStyleProperties(nameToLifeConv(s[0]), 0);
 				LevelCreator.boxes[x][y].setLife(nameToLifeConv(s[0]));
 			}
 			
@@ -54,7 +58,7 @@ public class LevelCreator {
 		return gPane;
 		
 	}
-	public int nameToLifeConv(String name) {
+	public static int nameToLifeConv(String name) {
 		int durability = 0;
 		switch(name) {
 		case "Empty": 
