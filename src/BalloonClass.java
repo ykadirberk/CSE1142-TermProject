@@ -20,7 +20,7 @@ public class BalloonClass extends Application {
 	
 	public void start(Stage stage) throws Exception {
 		
-		BorderPane level = constructLevel(4);// 1, 2, 3, 4, 5
+		BorderPane level = constructLevel(2);// 1, 2, 3, 4, 5
 
 			
 		stage.setScene(new Scene(level));

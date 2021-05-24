@@ -182,7 +182,7 @@ public class Level {
 				highScoreHolder.add(x);
 			}
 			highscore_text.setText("HighScore: " + highScoreHolder.get(getLevel_number()-1)+"");
-			
+			this.high_score = highScoreHolder.get(getLevel_number()-1);
 		}catch(Exception ex) {
 		}
 	}
