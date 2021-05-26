@@ -15,14 +15,12 @@ public class Level {
 	private Text level_text;
 	private Text highscore_text;
 	private Text score_text;
-	private Text feedback_text;
 	
 	
 	public Level() {
 		level_text = new Text("Level #" + level_number);
 		score_text = new Text("Score: " + current_score);
 		highscore_text = new Text("HighScore: " + high_score);
-		feedback_text = new Text("");
 	}
 	
 	public Level(int current_score, int level_number, int high_score) {
@@ -33,38 +31,25 @@ public class Level {
 		level_text = new Text("Level #" + level_number);
 		score_text = new Text("Score: " + current_score);
 		highscore_text = new Text("HighScore: " + high_score);
-		feedback_text = new Text("");
 	}
 	
 	public void setScore(int score) {
 		current_score = score;
 		score_text.setText("Score: " + current_score);
 		if (score > high_score) {
-			changeHighScore(score);
+			setEmbeddedHS(score);
 			
 		}
-	}
-	
-	public int getScore() {
-		return current_score;
 	}
 	
 	public void applyHit(int row, int column) {
 		Balloon[][] box = LevelCreator.boxes;
 		
-		String feedbackMess = "    Box: " + column + "-" + row;
-		
 		ArrayList<Integer[]> list = find5(row, column);
 		for (Integer[] i : list) {
 			box[ i[0] ][ i[1] ].isClicked();
-			if (row != i[0] || column != i[1]) {
-				feedbackMess += " - Hit: " + i[1] + "," + i[0]; 
-			}
 		}
 		
-		feedbackMess += " (" + hitToScore(list.size()) + " points)";
-		feedback_text.setText(feedbackMess);
-		System.out.println(feedbackMess);
 		current_score += hitToScore(list.size());
 		setScore(current_score);
 	}
@@ -145,9 +130,8 @@ public class Level {
 		return balloon5temp;
 	}
 	
-	public void changeHighScore(int highScoreX) {
-		
-		if(allDead())
+	public void setEmbeddedHS(int highScoreX) {
+		if(!isFinish())
 			return;
 		
 		String highScoreP = "../CSE1142-TermProject\\src\\highScore.txt";
@@ -159,66 +143,68 @@ public class Level {
 			while(input.hasNext()) {
 				String x = input.next();
 				t+=1;
+				
 				if(t==level_number){
 					s+= highScoreX+" ";
 					continue;
 				}
+				
 				s += x+" ";
+				
 			}
 		}catch(Exception ex) {
 		}
 		
 		try(PrintWriter input = new PrintWriter(highScorePath)){
 			input.print(s);
-			
-			
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+		} catch (Exception ex) {
 		}
 
 		
-		highscore_text.setText("HighScore: " + highScoreX+"");
+		setHigh_score(highScoreX);
 		
 	}
 	
-	public void getSunkedHS() {
-		
+	public void getEmbeddedHS() {
 		String highScoreFile = "../CSE1142-TermProject\\src\\highScore.txt";
 		File highScorePath = new File(highScoreFile);
 		ArrayList<Integer> highScoreHolder = new ArrayList<Integer>();
 		
 		try(Scanner input = new Scanner(highScorePath)){
+			
 			while(input.hasNext()) {
+				
 				int x = input.nextInt();
 				highScoreHolder.add(x);
 			}
-			highscore_text.setText("HighScore: " + highScoreHolder.get(getLevel_number()-1)+"");
-			this.high_score = highScoreHolder.get(getLevel_number()-1);
+			
+			setHigh_score(highScoreHolder.get(getLevel_number()-1));
+			
 		}catch(Exception ex) {
 		}
 	}
 	
-	public Boolean allDead() {
-		
+	public Boolean isFinish() {
 		Balloon[][] box = LevelCreator.boxes;
 		
 		for(int i = 0; i< 10; i++) {
 			for(int j = 0; j < 10; j++) {
+				
 				if(box[i][j].isClickable())
-					return true;
+					return false;
+				
 			}
 		}
-		return false;
-		
+		return true;
 	}
 	
 	public void setHigh_score(int high_score) {
-		setHighscore_text(new Text("HighScore: " + high_score));
+		highscore_text.setText("HighScore: " + high_score+"");
 		this.high_score = high_score;
 	}
 	
 	public void setLevel_number(int level_number) {
-		setLevel_text(new Text("Level #" + level_number));
+		level_text.setText("Level #" + level_number+"");
 		this.level_number = level_number;
 	}
 	
@@ -241,13 +227,17 @@ public class Level {
 	public Text getLevel_text() {
 		return level_text;
 	}
+	
+	public int getScore() {
+		return current_score;
+	}
 
 	public void setLevel_text(Text level_text) {
 		this.level_text = level_text;
 	}
 
 	public Text getHighscore_text() {
-		getSunkedHS();
+		getEmbeddedHS();
 		return highscore_text;
 	}
 
@@ -266,16 +256,13 @@ public class Level {
 	public Text getLevelText() {
 		return level_text;
 	}
+	
 	public Text getScoreText() {
 		return score_text;
 	}
+	
 	public Text getHighscoreText() {
 		return highscore_text;
 	}
-	public Text getFeedbackText() {
-		return feedback_text;
-	}
-	public void setFeedbackText(Text feedback_text) {
-		this.feedback_text = feedback_text;
-	}
+	
 }
