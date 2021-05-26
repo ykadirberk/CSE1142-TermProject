@@ -15,12 +15,14 @@ public class Level {
 	private Text level_text;
 	private Text highscore_text;
 	private Text score_text;
+	private Text feedback_text;
 	
 	
 	public Level() {
 		level_text = new Text("Level #" + level_number);
 		score_text = new Text("Score: " + current_score);
 		highscore_text = new Text("HighScore: " + high_score);
+		feedback_text = new Text("");
 	}
 	
 	public Level(int current_score, int level_number, int high_score) {
@@ -31,6 +33,7 @@ public class Level {
 		level_text = new Text("Level #" + level_number);
 		score_text = new Text("Score: " + current_score);
 		highscore_text = new Text("HighScore: " + high_score);
+		feedback_text = new Text("");
 	}
 	
 	public void setScore(int score) {
@@ -49,11 +52,19 @@ public class Level {
 	public void applyHit(int row, int column) {
 		Balloon[][] box = LevelCreator.boxes;
 		
+		String feedbackMess = "    Box: " + column + "-" + row;
+		
 		ArrayList<Integer[]> list = find5(row, column);
 		for (Integer[] i : list) {
 			box[ i[0] ][ i[1] ].isClicked();
+			if (row != i[0] || column != i[1]) {
+				feedbackMess += " - Hit: " + i[1] + "," + i[0]; 
+			}
 		}
 		
+		feedbackMess += " (" + hitToScore(list.size()) + " points)";
+		feedback_text.setText(feedbackMess);
+		System.out.println(feedbackMess);
 		current_score += hitToScore(list.size());
 		setScore(current_score);
 	}
@@ -260,5 +271,11 @@ public class Level {
 	}
 	public Text getHighscoreText() {
 		return highscore_text;
+	}
+	public Text getFeedbackText() {
+		return feedback_text;
+	}
+	public void setFeedbackText(Text feedback_text) {
+		this.feedback_text = feedback_text;
 	}
 }
