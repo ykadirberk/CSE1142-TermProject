@@ -16,7 +16,7 @@ public class BalloonClass extends Application {
 	public void start(Stage stage) throws Exception {
 		
 
-		VBox level = constructLevel(3);// 1, 2, 3, 4, 5
+		VBox level = constructLevel(4);// 1, 2, 3, 4, 5
 
 
 		stage.setScene(new Scene(level));
