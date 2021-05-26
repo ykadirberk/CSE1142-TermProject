@@ -1,13 +1,8 @@
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class BalloonClass extends Application {
@@ -20,18 +15,18 @@ public class BalloonClass extends Application {
 	
 	public void start(Stage stage) throws Exception {
 		
-		BorderPane level = constructLevel(3);// 1, 2, 3, 4, 5
+		VBox level = constructLevel(3);// 1, 2, 3, 4, 5
 
-			
 		stage.setScene(new Scene(level));
 		stage.setTitle("deneme");
 		stage.setResizable(false);
 		stage.show();
 	}
 	
-	public BorderPane constructLevel(int level) {
+	public VBox constructLevel(int level) {
 		
 		LevelCreator levelx = new LevelCreator(level);
+		VBox vert_box = new VBox();
 		BorderPane borders = new BorderPane();
 		
 		borders.setPadding(new Insets(0, 20, 0, 10));
@@ -41,91 +36,14 @@ public class BalloonClass extends Application {
 		borders.setCenter(BalloonClass.levelH.getScoreText());
 		borders.setRight(BalloonClass.levelH.getHighscore_text());
 		borders.setBottom(levelx.constructCenter());
-		return borders;
+		vert_box.getChildren().addAll(borders, levelH.getFeedbackText()); 
+		return vert_box;
 	}
 
 }
 
-class HoverEventClass implements EventHandler<MouseEvent> {
-	public int row;
-	public int column;
-	
-	public HoverEventClass(int row, int column) {
-		this.row = row;
-		this.column = column;
-	}
-	
-	@Override
-	public void handle(MouseEvent e) {
-		Balloon thisBox = LevelCreator.boxes[row][column];
-		if(thisBox.getLife() != 0) {
-			BalloonClass.levelH.applyHover(row, column);
-		}
-		
-		//System.out.println("Toggle: " + row + ", " + column);
 
-	}
-}
 
-class MExitEventClass implements EventHandler<MouseEvent> {
-	public int row;
-	public int column;
-	
-	public MExitEventClass(int row, int column) {
-		this.row = row;
-		this.column = column;
-	}
-	
-	@Override
-	public void handle(MouseEvent e) {
-		Balloon thisBox = LevelCreator.boxes[row][column];
-		if(thisBox.getLife() != 0) {
-			BalloonClass.levelH.applyLeave(row, column);
-		}
-		//System.out.println("Left: " + row + ", " + column);
 
-	}
-}
 
-class PressEventClass implements EventHandler<MouseEvent> {
-	public int row;
-	public int column;
-	
-	public PressEventClass(int row, int column) {
-		this.row = row;
-		this.column = column;
-		
-	}
-	
-	@Override
-	public void handle(MouseEvent e) {
-		Balloon thisBox = LevelCreator.boxes[row][column];
-		if(thisBox.getLife() != 0) {
-			//System.out.println("Click: "  + row + ", " + column);
-			BalloonClass.levelH.applyClick(row, column);
-		}
-	}
-	
-}
-
-class ReleaseEventClass implements EventHandler<MouseEvent> {
-	public int row;
-	public int column;
-	
-	public ReleaseEventClass(int row, int column) {
-		this.row = row;
-		this.column = column;
-		
-	}
-	
-	@Override
-	public void handle(MouseEvent e) {
-		Balloon thisBox = LevelCreator.boxes[row][column];
-		if(thisBox.getLife() != 0) {
-			//System.out.println("Release: "  + row + ", " + column);
-			BalloonClass.levelH.applyHit(row, column);
-		}
-	}
-	
-}
 
