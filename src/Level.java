@@ -272,10 +272,12 @@ public class Level {
 	public Text getHighscoreText() {
 		return highscore_text;
 	}
+
 	public Text getFeedbackText() {
 		return feedback_text;
 	}
 	public void setFeedbackText(Text feedback_text) {
 		this.feedback_text = feedback_text;
 	}
+
 }
