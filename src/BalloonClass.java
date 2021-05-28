@@ -9,9 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class BalloonClass extends Application {
@@ -27,10 +25,7 @@ public class BalloonClass extends Application {
 	}
 	
 	public void start(Stage stage) throws Exception {
-		
 		buildScene(stage);
-		
-
 	}
 	
 	// Definition of the function buildScene()
@@ -53,6 +48,7 @@ public class BalloonClass extends Application {
 		
 		Scene scene = new Scene(gPane,500,500);
 		stage.setScene(scene);
+		stage.setTitle("Blow'emUp");
 		stage.show();
 	}
 	
