@@ -53,7 +53,7 @@ public class Level {
 	public void setScore(int score) {
 		current_score = score;
 		score_text.setText("Score: " + current_score);
-		if(LevelCreator.levelLife==0 || LevelCreator.levelLife==1) {
+		if(LevelCreator.levelLife<=1 && (level_number<5)) {
 			if(!allDead())
 				nextBtn.visibleProperty().setValue(Boolean.TRUE);
 		}
@@ -219,7 +219,7 @@ public class Level {
 				int x = input.nextInt();
 				highScoreHolder.add(x);
 			}
-			setHigh_score(getLevel_number()-1);
+			setHigh_score(highScoreHolder.get(level_number-1));
 		}catch(Exception ex) {
 		}
 	}

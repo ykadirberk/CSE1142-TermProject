@@ -11,6 +11,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class BalloonClass extends Application {
@@ -36,23 +37,19 @@ public class BalloonClass extends Application {
 	// This function builds menu stage
 	public void buildScene(Stage stage) {
 		GridPane gPane = new GridPane();
+		
 		gPane.setStyle("-fx-background-color: #7986cb");
 		gPane.setAlignment(Pos.CENTER);
 		gPane.setVgap(5);
+	
 		Button start = new Button("Start");
 		start.setMinWidth(150);
 		start.setMinHeight(40);
 		initStylesHandlers(start);
 		start.setOnAction(e -> levels(stage));
-		
-		Button aboutUs = new Button("About Us");
-		aboutUs.setMinWidth(150);
-		aboutUs.setMinHeight(40);
-		initStylesHandlers(aboutUs);
-		
-		
-		gPane.add(start,  0, 0);
-		gPane.add(aboutUs,  0, 1);
+
+		gPane.add(start,  0, 3);
+
 		
 		Scene scene = new Scene(gPane,500,500);
 		stage.setScene(scene);
@@ -88,8 +85,7 @@ public class BalloonClass extends Application {
 	public void levels(Stage stage) {
 		LevelCreator levelx = new LevelCreator(level);
 		VBox vert_box = new VBox();
-		HBox horz_box = new HBox();
-		horz_box.setSpacing(100);
+		BorderPane border_pane = new BorderPane();
 		BorderPane borders = new BorderPane();
 		
 		borders.setPadding(new Insets(0, 20, 0, 10));
@@ -99,18 +95,23 @@ public class BalloonClass extends Application {
 		borders.setCenter(BalloonClass.levelH.getScoreText());
 		borders.setRight(BalloonClass.levelH.getHighscore_text());
 		borders.setBottom(levelx.constructCenter());
+		
 		level++;
+		
 		initStylesHandlers(BalloonClass.levelH.getNextBtn());
-		horz_box.getChildren().addAll(levelH.getFeedbackText(),BalloonClass.levelH.getNextBtn());
-		vert_box.getChildren().addAll(borders, horz_box); 
+		
+		border_pane.setLeft(levelH.getFeedbackText());
+		border_pane.setRight(BalloonClass.levelH.getNextBtn());
+		vert_box.getChildren().addAll(borders, border_pane); 
+		
 		BalloonClass.levelH.getNextBtn().setOnAction(e-> {
-			LevelCreator.levelLife=0;
-			levelH.setCurrent_score(0);
-			levels(stage);
-			levelH.getNextBtn().visibleProperty().setValue(Boolean.FALSE);
-		});
+				LevelCreator.levelLife=0;
+				levelH.setCurrent_score(0);
+				levels(stage);
+				levelH.getNextBtn().visibleProperty().setValue(Boolean.FALSE);});
+		
 		stage.setScene(new Scene(vert_box));
-		stage.setTitle("deneme");
+		stage.setTitle("Blow'emUp");
 		stage.setResizable(false);
 		stage.show();
 		
