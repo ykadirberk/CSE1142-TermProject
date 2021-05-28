@@ -28,7 +28,7 @@ public class Level {
 		score_text = new Text("Score: " + current_score);
 		highscore_text = new Text("HighScore: " + high_score);
 		feedback_text = new Text("");
-		nextBtn = new Button("LLELELEL");
+		nextBtn = new Button("NEXT LEVEL >>");
 		nextBtn.visibleProperty().setValue(Boolean.FALSE);
 		
 
@@ -43,7 +43,7 @@ public class Level {
 		score_text = new Text("Score: " + current_score);
 		highscore_text = new Text("HighScore: " + high_score);
 		feedback_text = new Text("");
-		nextBtn = new Button("LLELELEL");
+		nextBtn = new Button("NEXT LEVEL >>");
 		nextBtn.visibleProperty().setValue(Boolean.FALSE);
 		
 	}
@@ -53,7 +53,6 @@ public class Level {
 	public void setScore(int score) {
 		current_score = score;
 		score_text.setText("Score: " + current_score);
-		System.out.println("sadasdasdasdasd"+LevelCreator.levelLife);
 		if(LevelCreator.levelLife==0 || LevelCreator.levelLife==1) {
 			if(!allDead())
 				nextBtn.visibleProperty().setValue(Boolean.TRUE);

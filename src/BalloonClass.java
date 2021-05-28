@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -87,6 +88,8 @@ public class BalloonClass extends Application {
 	public void levels(Stage stage) {
 		LevelCreator levelx = new LevelCreator(level);
 		VBox vert_box = new VBox();
+		HBox horz_box = new HBox();
+		horz_box.setSpacing(100);
 		BorderPane borders = new BorderPane();
 		
 		borders.setPadding(new Insets(0, 20, 0, 10));
@@ -97,7 +100,9 @@ public class BalloonClass extends Application {
 		borders.setRight(BalloonClass.levelH.getHighscore_text());
 		borders.setBottom(levelx.constructCenter());
 		level++;
-		vert_box.getChildren().addAll(borders, levelH.getFeedbackText(),BalloonClass.levelH.getNextBtn()); 
+		initStylesHandlers(BalloonClass.levelH.getNextBtn());
+		horz_box.getChildren().addAll(levelH.getFeedbackText(),BalloonClass.levelH.getNextBtn());
+		vert_box.getChildren().addAll(borders, horz_box); 
 		BalloonClass.levelH.getNextBtn().setOnAction(e-> {
 			LevelCreator.levelLife=0;
 			levelH.setCurrent_score(0);
