@@ -1,10 +1,12 @@
 //Yasin Enes SISIK, 150119807 - Kadir Berk YAGAR, 150120016
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -13,6 +15,11 @@ import javafx.stage.Stage;
 public class BalloonClass extends Application {
 	static Level levelH = new Level();
 	int level= 1;
+	
+	String normal_style = "-fx-background-color: #06112b; -fx-text-fill: white;";
+	String hover_style = "-fx-background-color: #081b38; -fx-text-fill: white;";
+	String press_style = "-fx-background-color: #050d26; -fx-text-fill: gray;";
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -30,15 +37,48 @@ public class BalloonClass extends Application {
 		GridPane gPane = new GridPane();
 		gPane.setStyle("-fx-background-color: #7986cb");
 		gPane.setAlignment(Pos.CENTER);
+		gPane.setVgap(5);
 		Button start = new Button("Start");
-		Button aboutUs = new Button("About Us");
-		gPane.addColumn(0, start,aboutUs);
+		start.setMinWidth(150);
+		start.setMinHeight(40);
+		initStylesHandlers(start);
 		start.setOnAction(e -> levels(stage));
+		
+		Button aboutUs = new Button("About Us");
+		aboutUs.setMinWidth(150);
+		aboutUs.setMinHeight(40);
+		initStylesHandlers(aboutUs);
+		
+		
+		gPane.add(start,  0, 0);
+		gPane.add(aboutUs,  0, 1);
 		
 		Scene scene = new Scene(gPane,500,500);
 		stage.setScene(scene);
 		stage.show();
+	}
+	
+	private void initStylesHandlers(Button b) {
+		b.setStyle(normal_style);
+		b.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent e) {
+				b.setStyle(hover_style);
+			}
+		});
+		b.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent e) {
+				b.setStyle(normal_style);
+			}
+		});
 		
+		b.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent e) {
+				b.setStyle(press_style);
+			}
+		});
 	}
 	
 	// Definition of the function LevelCreator()
