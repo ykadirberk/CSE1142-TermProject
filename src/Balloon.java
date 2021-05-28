@@ -1,5 +1,5 @@
-// Yasin Enes SISIK, 150119807
-// Kadir Berk YAGAR, 150120016
+//Yasin Enes SISIK, 150119807 - Kadir Berk YAGAR, 150120016
+
 import javafx.scene.Cursor;
 import javafx.scene.shape.Rectangle;
 	//Definition of the class Balloon
@@ -81,6 +81,7 @@ public class Balloon extends Rectangle{
 		if (!isClickable())
 			return;
 		this.life -= 1;
+		LevelCreator.levelLife-=1;
 		setStyleProperties(this.life, NORMAL_);
 	}
 	

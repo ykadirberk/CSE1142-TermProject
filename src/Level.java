@@ -1,12 +1,11 @@
-//Yasin Enes SISIK, 150119807
-//Kadir Berk YAGAR, 150120016
-
+//Yasin Enes SISIK, 150119807 - Kadir Berk YAGAR, 150120016
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 // Definition of the class level()
 // This class applies effects, holds scores and rewrites them
@@ -18,8 +17,10 @@ public class Level {
 	private Text level_text;
 	private Text highscore_text;
 	private Text score_text;
+
 	private Text feedback_text;
 	
+	private Button nextBtn;
 	
 	public Level() {
 
@@ -27,6 +28,10 @@ public class Level {
 		score_text = new Text("Score: " + current_score);
 		highscore_text = new Text("HighScore: " + high_score);
 		feedback_text = new Text("");
+		nextBtn = new Button("LLELELEL");
+		nextBtn.visibleProperty().setValue(Boolean.FALSE);
+		
+
 	}
 	
 	public Level(int current_score, int level_number, int high_score) {
@@ -38,6 +43,9 @@ public class Level {
 		score_text = new Text("Score: " + current_score);
 		highscore_text = new Text("HighScore: " + high_score);
 		feedback_text = new Text("");
+		nextBtn = new Button("LLELELEL");
+		nextBtn.visibleProperty().setValue(Boolean.FALSE);
+		
 	}
 	
 	// Definition of the function setScore()
@@ -45,9 +53,13 @@ public class Level {
 	public void setScore(int score) {
 		current_score = score;
 		score_text.setText("Score: " + current_score);
+		System.out.println("sadasdasdasdasd"+LevelCreator.levelLife);
+		if(LevelCreator.levelLife==0 || LevelCreator.levelLife==1) {
+			if(!allDead())
+				nextBtn.visibleProperty().setValue(Boolean.TRUE);
+		}
 		if (score > high_score) {
 			setEmbededHS(score);
-			
 		}
 	}
 	
@@ -296,6 +308,13 @@ public class Level {
 	}
 	public void setFeedbackText(Text feedback_text) {
 		this.feedback_text = feedback_text;
+	}
+	public Button getNextBtn() {
+		return nextBtn;
+	}
+
+	public void setNextBtn(Button nextBtn) {
+		this.nextBtn = nextBtn;
 	}
 
 }

@@ -1,6 +1,4 @@
-//Yasin Enes SISIK, 150119807
-//Kadir Berk YAGAR, 150120016
-
+//Yasin Enes SISIK, 150119807 - Kadir Berk YAGAR, 150120016
 import java.io.File;
 import java.util.Scanner;
 import javafx.geometry.Insets;
@@ -9,7 +7,7 @@ import javafx.scene.layout.GridPane;
 //This class constructs level, digs high scores.
 public class LevelCreator {
 	
-
+	public static int levelLife = 0;
 	private File levelPath;
 	public static Balloon[][] boxes = new Balloon[10][10];
 	private int level;
@@ -62,13 +60,13 @@ public class LevelCreator {
 				int y = Integer.parseInt(s[2]);
 				LevelCreator.boxes[x][y].setStyleProperties(nameToLifeConv(s[0]), 0);
 				LevelCreator.boxes[x][y].setLife(nameToLifeConv(s[0]));
-				
 			}
 			
 			
 		}catch(Exception ex) {
 			
 		}
+		levelLife/=2;
 		return gPane;
 		
 	}
@@ -81,9 +79,11 @@ public class LevelCreator {
 		case "Empty": 
 			break;
 		case "Mirror":
+			levelLife+=1;
 			durability = 1;
 			break;
 		case "Wood":
+			levelLife+=2;
 			durability = 2;
 			break;
 		}

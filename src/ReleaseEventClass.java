@@ -1,6 +1,4 @@
-//Yasin Enes SISIK, 150119807
-//Kadir Berk YAGAR, 150120016
-
+//Yasin Enes SISIK, 150119807 - Kadir Berk YAGAR, 150120016
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 

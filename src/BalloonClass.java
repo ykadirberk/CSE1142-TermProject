@@ -1,5 +1,4 @@
-//Yasin Enes SISIK, 150119807
-//Kadir Berk YAGAR, 150120016
+//Yasin Enes SISIK, 150119807 - Kadir Berk YAGAR, 150120016
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -58,11 +57,12 @@ public class BalloonClass extends Application {
 		borders.setRight(BalloonClass.levelH.getHighscore_text());
 		borders.setBottom(levelx.constructCenter());
 		level++;
-		Button next = new Button("Next");
-		vert_box.getChildren().addAll(borders, levelH.getFeedbackText(),next); 
-		next.setOnAction(e-> {
+		vert_box.getChildren().addAll(borders, levelH.getFeedbackText(),BalloonClass.levelH.getNextBtn()); 
+		BalloonClass.levelH.getNextBtn().setOnAction(e-> {
+			LevelCreator.levelLife=0;
 			levelH.setCurrent_score(0);
 			levels(stage);
+			levelH.getNextBtn().visibleProperty().setValue(Boolean.FALSE);
 		});
 		stage.setScene(new Scene(vert_box));
 		stage.setTitle("deneme");
