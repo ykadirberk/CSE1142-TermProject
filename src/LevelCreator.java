@@ -1,8 +1,12 @@
+//Yasin Enes SISIK, 150119807
+//Kadir Berk YAGAR, 150120016
+
 import java.io.File;
 import java.util.Scanner;
 import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
-
+//Definition of the class LevelCreator
+//This class constructs level, digs high scores.
 public class LevelCreator {
 	
 
@@ -10,7 +14,6 @@ public class LevelCreator {
 	public static Balloon[][] boxes = new Balloon[10][10];
 	private int level;
 	private String path;
-	
 	LevelCreator(int Level) {
 		
 
@@ -19,7 +22,9 @@ public class LevelCreator {
 		this.levelPath = new File(path);
 		
 	}
-	
+	// Definition of the function constructCenter()
+	// This function constructs balloons grid pane, and return grid pane
+	// Assigns balloons to the event classes. It get level from levels directory, and adjusts them to the as balloon
 	public GridPane constructCenter() {
 		
 		GridPane gPane = new GridPane();
@@ -68,7 +73,9 @@ public class LevelCreator {
 		
 	}
 	
-	public static int nameToLifeConv(String name) {
+	// Definition of the function nameToLifeConv()
+	// This function converts items to the durability while reading level files
+	public int nameToLifeConv(String name) {
 		int durability = 0;
 		switch(name) {
 		case "Empty": 

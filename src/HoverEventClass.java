@@ -1,6 +1,11 @@
+//Yasin Enes SISIK, 150119807
+//Kadir Berk YAGAR, 150120016
+
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
+ 	// Definition of the class HoverEventClass
+	// This class implements hover effect on the balloons
 class HoverEventClass implements EventHandler<MouseEvent> {
 	public int row;
 	public int column;

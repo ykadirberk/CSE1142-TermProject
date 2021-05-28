@@ -1,7 +1,10 @@
-
+// Yasin Enes SISIK, 150119807
+// Kadir Berk YAGAR, 150120016
 import javafx.scene.Cursor;
 import javafx.scene.shape.Rectangle;
-
+	//Definition of the class Balloon
+	// This class is the customized from Rectangle
+	// and, it has required properties
 public class Balloon extends Rectangle{
 	
 	/* Style sheet for 0 durability balloon*/
@@ -37,7 +40,8 @@ public class Balloon extends Rectangle{
 		this.yPosition = yPosition;
 		setStyleProperties(life, NORMAL_);
 	}
-
+	// Definition of the function setStyleProperties()
+	// This function changes the Balloon styles
 	void setStyleProperties(int health, int type) {
 		switch(health) {
 			case 0: //Empty balloons
@@ -71,7 +75,8 @@ public class Balloon extends Rectangle{
 		}
 	}
 	
-	//Executes the click action, which is popping the balloon
+	// Definition of the function isClicked()
+	// This function executes the click action, which is popping the balloon.
 	public void isClicked() {
 		if (!isClickable())
 			return;
@@ -79,6 +84,8 @@ public class Balloon extends Rectangle{
 		setStyleProperties(this.life, NORMAL_);
 	}
 	
+	// Definition of the function isClickable()
+	// This function checks balloons lives.
 	public Boolean isClickable() {
 		return (this.life>0) ? true : false;
 	}

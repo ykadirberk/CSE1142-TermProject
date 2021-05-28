@@ -1,3 +1,5 @@
+//Yasin Enes SISIK, 150119807
+//Kadir Berk YAGAR, 150120016
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,7 +8,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import javafx.scene.text.Text;
-
+// Definition of the class level()
+// This class applies effects, holds scores and rewrites them
 public class Level {
 	private int current_score = 0;
 	private int level_number;
@@ -19,6 +22,7 @@ public class Level {
 	
 	
 	public Level() {
+
 		level_text = new Text("Level #" + level_number);
 		score_text = new Text("Score: " + current_score);
 		highscore_text = new Text("HighScore: " + high_score);
@@ -36,11 +40,13 @@ public class Level {
 		feedback_text = new Text("");
 	}
 	
+	// Definition of the function setScore()
+	// This function sets current score and compares it with high score
 	public void setScore(int score) {
 		current_score = score;
 		score_text.setText("Score: " + current_score);
 		if (score > high_score) {
-			changeHighScore(score);
+			setEmbededHS(score);
 			
 		}
 	}
@@ -49,6 +55,8 @@ public class Level {
 		return current_score;
 	}
 	
+	// Definition of the function applyHit()
+	// This function applies  hit on the balloons, and print feedback statement
 	public void applyHit(int row, int column) {
 		Balloon[][] box = LevelCreator.boxes;
 		
@@ -69,6 +77,8 @@ public class Level {
 		setScore(current_score);
 	}
 	
+	// Definition of the function applyHover()
+	// This function applies  hover effect on the balloons..
 	public void applyHover(int row, int column) {
 		Balloon[][] box = LevelCreator.boxes;
 		
@@ -78,6 +88,8 @@ public class Level {
 		}
 	}
 	
+	// Definition of the function applyHover()
+	// This function applies  leave effect on the balloons.
 	public void applyLeave(int row, int column) {
 		Balloon[][] box = LevelCreator.boxes;
 		
@@ -105,8 +117,8 @@ public class Level {
 		return -5;
 	}
 
-	
-	//find that 5 balloons 
+	//Definition of the function find5()
+	//This function finds that 5 balloons 
 	private ArrayList<Integer[]> find5(int row, int column) {
 		ArrayList<Integer[]> balloon5temp = new ArrayList<>();
 		Balloon[][] box = LevelCreator.boxes;
@@ -145,7 +157,9 @@ public class Level {
 		return balloon5temp;
 	}
 	
-	public void changeHighScore(int highScoreX) {
+	//Definition of the function setEmbededHS()
+	//This function rewrite the high score to highScore.txt
+	public void setEmbededHS(int highScoreX) {
 		
 		if(allDead())
 			return;
@@ -177,11 +191,13 @@ public class Level {
 		}
 
 		
-		highscore_text.setText("HighScore: " + highScoreX+"");
+		setHigh_score(highScoreX);
 		
 	}
 	
-	public void getSunkedHS() {
+	//Definition of the function getEmbededHS()
+	//This function digs high scores from highScore.txt
+	public void getEmbededHS() {
 		
 		String highScoreFile = "../CSE1142-TermProject\\src\\highScore.txt";
 		File highScorePath = new File(highScoreFile);
@@ -192,12 +208,13 @@ public class Level {
 				int x = input.nextInt();
 				highScoreHolder.add(x);
 			}
-			highscore_text.setText("HighScore: " + highScoreHolder.get(getLevel_number()-1)+"");
-			this.high_score = highScoreHolder.get(getLevel_number()-1);
+			setHigh_score(getLevel_number()-1);
 		}catch(Exception ex) {
 		}
 	}
 	
+	//Definition of the function allDead()
+	//This function checks all balloons lives
 	public Boolean allDead() {
 		
 		Balloon[][] box = LevelCreator.boxes;
@@ -213,12 +230,12 @@ public class Level {
 	}
 	
 	public void setHigh_score(int high_score) {
-		setHighscore_text(new Text("HighScore: " + high_score));
+		highscore_text.setText("HighScore: " + high_score);
 		this.high_score = high_score;
 	}
 	
 	public void setLevel_number(int level_number) {
-		setLevel_text(new Text("Level #" + level_number));
+		level_text.setText("Level #" + level_number);
 		this.level_number = level_number;
 	}
 	
@@ -227,6 +244,7 @@ public class Level {
 	}
 
 	public void setCurrent_score(int current_score) {
+		score_text.setText("Score: " + current_score);
 		this.current_score = current_score;
 	}
 
@@ -247,7 +265,7 @@ public class Level {
 	}
 
 	public Text getHighscore_text() {
-		getSunkedHS();
+		getEmbededHS();
 		return highscore_text;
 	}
 
